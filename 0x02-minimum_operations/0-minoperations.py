@@ -1,29 +1,27 @@
 #!/usr/bin/python3
+"""Minimum Operations"""
 
-"""
-    A method that determines the number of minmum operations given n characters
 
-"""
+def primeFactorization(x):
+    """Returns prime factorization elements of x"""
+    div = 2
+    array = list()
+    while (div <= x):
+        if x % div == 0:
+            array.append(div)
+            x /= div
+        else:
+            div += 1
+
+    return array
+
 
 def minOperations(n):
-    """
-        A function that calculates the fewest number of operations needed to giv        e a result of exactly n H characters in a file
-        args: n: Number of characters to be displayed
-
-        return:
-                number of min operations
-    """
-
-    now = 1
-    start = 0
-    count = 0
-    while now < n:
-        rem = n - now
-        if ( rem % now == 0):
-            start = now
-            now += start
-            count += 2
-        else:
-            now += start
-            count += 1
-    return count
+    """Calculates the fewest number of operations needed
+        to result in exactly n H characters in the file"""
+    min = 0
+    factors = [x for x in primeFactorization(n)]
+    occurences = {item: factors.count(item) for item in factors}
+    for k, v in occurences.items():
+        min += k * v
+    return min
